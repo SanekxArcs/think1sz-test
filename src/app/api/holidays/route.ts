@@ -1,11 +1,11 @@
 import { NextResponse } from "next/server";
 import { Holiday } from "../../../types/forms";
 
-    type HolidayType = "NATIONAL_HOLIDAY" | "OBSERVANCE";
+type HolidayType = "NATIONAL_HOLIDAY" | "OBSERVANCE";
 
-    interface FormattedHoliday extends Holiday {
-      type: HolidayType;
-    }
+interface FormattedHoliday extends Holiday {
+  type: HolidayType;
+}
 
 export async function GET() {
   try {
@@ -60,10 +60,6 @@ export async function GET() {
 
     const nationalHolidays = await nationalResponse.json();
     const observances = await observanceResponse.json();
-
-
-
-
 
     const formattedNationalHolidays: FormattedHoliday[] = nationalHolidays.map(
       (holiday: Holiday) => ({

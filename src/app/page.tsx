@@ -10,7 +10,7 @@ import TimeSlots from "../components/TimeSlots";
 import Button from "../components/Button";
 import { FormDataType, FormErrors, Holiday } from "../types/forms";
 
-const FORM_STORAGE_KEY = 'workout-form-data';
+const FORM_STORAGE_KEY = "workout-form-data";
 
 export default function Home() {
   const [formData, setFormData] = useState<FormDataType>({
@@ -36,15 +36,15 @@ export default function Home() {
   }, []);
 
   useEffect(() => {
-    const isValid = 
-      formData.name.trim() !== "" && 
-      formData.lastName.trim() !== "" && 
-      /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(formData.email) && 
-      formData.age >= 8 && 
-      formData.photo !== null && 
-      formData.date !== "" && 
+    const isValid =
+      formData.name.trim() !== "" &&
+      formData.lastName.trim() !== "" &&
+      /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(formData.email) &&
+      formData.age >= 8 &&
+      formData.photo !== null &&
+      formData.date !== "" &&
       formData.timeSlot !== "";
-    
+
     setIsDisabled(!isValid);
   }, [formData]);
 
@@ -81,15 +81,17 @@ export default function Home() {
   };
 
   const handleDateSelect = (date: string, holidayInfo: Holiday | null) => {
-    const isNonBookableDay = holidayInfo && 
-      (holidayInfo.type === "NATIONAL_HOLIDAY" || holidayInfo.type === "OBSERVANCE");
-    
+    const isNonBookableDay =
+      holidayInfo &&
+      (holidayInfo.type === "NATIONAL_HOLIDAY" ||
+        holidayInfo.type === "OBSERVANCE");
+
     setFormData({
       ...formData,
       date,
-      timeSlot: isNonBookableDay ? "" : formData.timeSlot
+      timeSlot: isNonBookableDay ? "" : formData.timeSlot,
     });
-    
+
     setShowTimeSlots(!isNonBookableDay);
   };
 
@@ -102,22 +104,21 @@ export default function Home() {
 
   const validateEmail = (e: React.FocusEvent<HTMLInputElement>) => {
     const email = e.target.value;
-    
+
     if (email.trim() === "") {
-      // Don't show error if the field is empty (that's handled on submit)
-      setErrors(prev => ({ ...prev, email: undefined }));
+      setErrors((prev) => ({ ...prev, email: undefined }));
       return;
     }
-    
-    const isValidEmail = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(email);
+
+    const isValidEmail =
+      /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(email);
     if (!isValidEmail) {
-      setErrors(prev => ({ 
-        ...prev, 
-        email: "Please use correct formatting. Example: address@email.com" 
+      setErrors((prev) => ({
+        ...prev,
+        email: "Please use correct formatting. Example: address@email.com",
       }));
     } else {
-      // Clear the error if the email is valid
-      setErrors(prev => ({ ...prev, email: undefined }));
+      setErrors((prev) => ({ ...prev, email: undefined }));
     }
   };
 
@@ -145,22 +146,22 @@ export default function Home() {
     return Object.keys(newErrors).length === 0;
   };
 
-  // Load form data from sessionStorage on component mount
   useEffect(() => {
     const savedFormData = sessionStorage.getItem(FORM_STORAGE_KEY);
     if (savedFormData) {
       try {
         const parsedData = JSON.parse(savedFormData);
-        setFormData(prev => ({
+        setFormData((prev) => ({
           ...parsedData,
-          photo: prev.photo // Keep the current photo reference as we can't store File objects in JSON
+          photo: prev.photo,
         }));
-        
-        // Determine if we should show time slots based on the date in storage
+
         if (parsedData.date) {
-          const holidayInfo = holidays.find(h => h.date === parsedData.date);
-          const isNonBookableDay = holidayInfo && 
-            (holidayInfo.type === "NATIONAL_HOLIDAY" || holidayInfo.type === "OBSERVANCE");
+          const holidayInfo = holidays.find((h) => h.date === parsedData.date);
+          const isNonBookableDay =
+            holidayInfo &&
+            (holidayInfo.type === "NATIONAL_HOLIDAY" ||
+              holidayInfo.type === "OBSERVANCE");
           setShowTimeSlots(!isNonBookableDay);
         }
       } catch (error) {
@@ -170,11 +171,10 @@ export default function Home() {
     }
   }, [holidays]);
 
-  // Save form data to sessionStorage whenever it changes
   useEffect(() => {
     const formDataToStore = {
       ...formData,
-      photo: null // Don't try to store the File object
+      photo: null,
     };
     sessionStorage.setItem(FORM_STORAGE_KEY, JSON.stringify(formDataToStore));
   }, [formData]);
@@ -202,10 +202,9 @@ export default function Home() {
 
       if (response.ok) {
         const responseData = await response.json();
-        
+
         setSubmitSuccess(true);
 
-        // Clear form data and session storage on successful submission
         setFormData({
           name: "",
           lastName: "",
@@ -217,7 +216,7 @@ export default function Home() {
         });
         setShowTimeSlots(false);
         sessionStorage.removeItem(FORM_STORAGE_KEY);
-        
+
         if (responseData.resetSuccessAfter) {
           setTimeout(() => {
             setSubmitSuccess(false);
@@ -234,10 +233,13 @@ export default function Home() {
   return (
     <div className="grid items-center justify-items-center min-h-screen font-[family-name:var(--font-geist-sans)] p-6">
       <main className="w-full max-w-[426px]" role="main">
-        
         <h1 className="sr-only">Workout Application Form</h1>
-        <form onSubmit={handleSubmit} id={formId} aria-label="Workout Application Form" noValidate>
-
+        <form
+          onSubmit={handleSubmit}
+          id={formId}
+          aria-label="Workout Application Form"
+          noValidate
+        >
           <section className="pb-10" aria-labelledby="personal-info-heading">
             <SectionHeader title="Personal Info" id="personal-info-heading" />
             <div className="space-y-4">
