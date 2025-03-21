@@ -62,6 +62,32 @@ Projekt został stworzony z dużym naciskiem na szczegóły interfejsu, responsy
 - Responsive design
 - Form submission handling
 
+## Co jeszcze mógłbym dodać?
+
+### Ulepszenia UI/UX
+- Dodanie animacji w całej aplikacji dla lepszej informacji zwrotnej dla użytkownika
+- Dodanie przycisku powrotu na górze dla łatwiejszej nawigacji, aby zaimplementować doświadczenie podobne do aplikacji mobilnej w widoku mobilnym
+- Zapewnienie, że błędy nie zmieniają układu dla płynniejszego doświadczenia użytkownika
+- Dodanie strony sukcesu/powiadomienia toast po przesłaniu formularza
+- Implementacja funkcji przekierowania do strony głównej po przesłaniu
+
+### Ulepszenia przesyłania zdjęć
+- Wyświetlanie obsługiwanych typów plików (PNG, JPG, WEBP) jako wskazówek dla użytkowników
+- Dodanie jasnych limitów rozmiaru plików (maksymalnie 5MB) dla określenia oczekiwań
+- Rozszerzenie funkcji podglądu wybranych obrazów jako okno dialogowe lub w inny sposób
+
+### Wybór przedziałów czasowych
+- Utrzymanie wszystkich przedziałów czasowych widocznymi, ale wyłączonymi, aby pomóc użytkownikom zrozumieć dostępność
+- Poprawa wizualnego wskazania dostępnych i niedostępnych przedziałów
+
+### Ulepszenia kalendarza
+- Implementacja różnych kolorów dla różnych typów świąt dla lepszego wizualnego rozróżnienia
+
+### Kontrolki formularza
+- Przeprojektowanie selektora wieku jako pole wprowadzania z niestandardowymi przyciskami zwiększania/zmniejszania
+- Implementacja React Query dla wydajnego pobierania danych
+- Dodanie Redux dla scentralizowanego zarządzania stanem
+
 ## Project Structure
 
 ```
@@ -103,7 +129,7 @@ think1sz-test-task/
    ```
 3. Create a `.env.local` file in the root directory and add your API key:
    ```
-   API_KEY=OH+HEf/9IH2zuHR/cMO/8g==ldhBovC6Rpa1TIss
+   API_KEY="OH+HEf/9IH2zuHR/cMO/8g==ldhBovC6Rpa1TIss"
    ```
 4. Run the development server:
    ```
