@@ -6,7 +6,11 @@ export async function POST(request: Request) {
   try {
     // Get the form data from the request
     const formData = await request.formData();
-    
+
+    // Uncoment below to send data to external API
+    // The external endpoint is fictional, so we'll just simulate a successful response
+
+    // Start
     // const response = await fetch("http://letsworkout.pl/submit", {
     //   method: "POST",
     //   body: formData,
@@ -17,11 +21,13 @@ export async function POST(request: Request) {
     // });
     // const responseData = await response.json();
     // console.log("External API response:", responseData);
-    // The external endpoint is fictional, so we'll just simulate a successful response
+    // End
 
     // In a real application, we would check response.ok and handle accordingly
     // Return a successful response
-    
+
+
+
     // Process the form data
     const formEntries = Object.fromEntries(formData.entries());
     // Log the received data (you can replace this with database storage or other processing)
