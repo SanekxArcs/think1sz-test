@@ -7,7 +7,7 @@ import { CalendarDay, Holiday } from "../types/forms";
 function CalendarHeader({
   currentMonth,
   onPrevMonth,
-  onNextMonth
+  onNextMonth,
 }: {
   currentMonth: Date;
   onPrevMonth: () => void;
@@ -170,11 +170,12 @@ function HolidayInfo({ holiday }: { holiday: Holiday | null }) {
   if (!holiday) return null;
   
   return (
-    <div 
-      className="mt-2 absolute left-0 -bottom-6 flex items-center space-x-2 animate-fade-in" 
+    <div
+      className="mt-2 absolute left-0 -bottom-6 flex items-center space-x-2 animate-fade-in"
       aria-live="polite"
       role="status"
     >
+      
       <svg
         xmlns="http://www.w3.org/2000/svg"
         width="16"
@@ -183,9 +184,7 @@ function HolidayInfo({ holiday }: { holiday: Holiday | null }) {
         className="fill-inactive inline-block mr-2"
         aria-hidden="true"
       >
-        <path
-          d="M8 0C6.41775 0 4.87104 0.469192 3.55544 1.34824C2.23985 2.22729 1.21447 3.47672 0.608967 4.93853C0.00346629 6.40034 -0.15496 8.00887 0.153721 9.56072C0.462403 11.1126 1.22433 12.538 2.34315 13.6569C3.46197 14.7757 4.88743 15.5376 6.43928 15.8463C7.99113 16.155 9.59966 15.9965 11.0615 15.391C12.5233 14.7855 13.7727 13.7602 14.6518 12.4446C15.5308 11.129 16 9.58225 16 8C16 5.87827 15.1571 3.84344 13.6569 2.34315C12.1566 0.842855 10.1217 0 8 0ZM7.00667 4C7.00667 3.73478 7.11203 3.48043 7.29956 3.29289C7.4871 3.10536 7.74145 3 8.00667 3C8.27189 3 8.52624 3.10536 8.71378 3.29289C8.90131 3.48043 9.00667 3.73478 9.00667 4V8.59333C9.00667 8.72465 8.9808 8.85469 8.93055 8.97602C8.88029 9.09734 8.80664 9.20758 8.71378 9.30044C8.62092 9.3933 8.51068 9.46696 8.38935 9.51721C8.26803 9.56747 8.13799 9.59333 8.00667 9.59333C7.87535 9.59333 7.74531 9.56747 7.62399 9.51721C7.50266 9.46696 7.39242 9.3933 7.29956 9.30044C7.2067 9.20758 7.13305 9.09734 7.08279 8.97602C7.03254 8.85469 7.00667 8.72465 7.00667 8.59333V4ZM8 13C7.77321 13 7.55152 12.9327 7.36295 12.8068C7.17438 12.6808 7.02741 12.5017 6.94062 12.2921C6.85383 12.0826 6.83113 11.8521 6.87537 11.6296C6.91961 11.4072 7.02882 11.2029 7.18919 11.0425C7.34955 10.8822 7.55387 10.7729 7.7763 10.7287C7.99873 10.6845 8.22929 10.7072 8.43881 10.794C8.64834 10.8807 8.82743 11.0277 8.95342 11.2163C9.07942 11.4048 9.14667 11.6265 9.14667 11.8533C9.14667 12.1574 9.02586 12.4491 8.81082 12.6641C8.59578 12.8792 8.30412 13 8 13Z"
-        />
+        <path d="M8 0C6.41775 0 4.87104 0.469192 3.55544 1.34824C2.23985 2.22729 1.21447 3.47672 0.608967 4.93853C0.00346629 6.40034 -0.15496 8.00887 0.153721 9.56072C0.462403 11.1126 1.22433 12.538 2.34315 13.6569C3.46197 14.7757 4.88743 15.5376 6.43928 15.8463C7.99113 16.155 9.59966 15.9965 11.0615 15.391C12.5233 14.7855 13.7727 13.7602 14.6518 12.4446C15.5308 11.129 16 9.58225 16 8C16 5.87827 15.1571 3.84344 13.6569 2.34315C12.1566 0.842855 10.1217 0 8 0ZM7.00667 4C7.00667 3.73478 7.11203 3.48043 7.29956 3.29289C7.4871 3.10536 7.74145 3 8.00667 3C8.27189 3 8.52624 3.10536 8.71378 3.29289C8.90131 3.48043 9.00667 3.73478 9.00667 4V8.59333C9.00667 8.72465 8.9808 8.85469 8.93055 8.97602C8.88029 9.09734 8.80664 9.20758 8.71378 9.30044C8.62092 9.3933 8.51068 9.46696 8.38935 9.51721C8.26803 9.56747 8.13799 9.59333 8.00667 9.59333C7.87535 9.59333 7.74531 9.56747 7.62399 9.51721C7.50266 9.46696 7.39242 9.3933 7.29956 9.30044C7.2067 9.20758 7.13305 9.09734 7.08279 8.97602C7.03254 8.85469 7.00667 8.72465 7.00667 8.59333V4ZM8 13C7.77321 13 7.55152 12.9327 7.36295 12.8068C7.17438 12.6808 7.02741 12.5017 6.94062 12.2921C6.85383 12.0826 6.83113 11.8521 6.87537 11.6296C6.91961 11.4072 7.02882 11.2029 7.18919 11.0425C7.34955 10.8822 7.55387 10.7729 7.7763 10.7287C7.99873 10.6845 8.22929 10.7072 8.43881 10.794C8.64834 10.8807 8.82743 11.0277 8.95342 11.2163C9.07942 11.4048 9.14667 11.6265 9.14667 11.8533C9.14667 12.1574 9.02586 12.4491 8.81082 12.6641C8.59578 12.8792 8.30412 13 8 13Z" />
       </svg>
       <p>It is {holiday.name}.</p>
     </div>
@@ -196,6 +195,7 @@ export default function Calendar({
   onSelectDate,
   holidays,
   error,
+  isLoadingHolidays,
 }: CalendarProps) {
   const formatDate = (date: Date) => {
     const year = date.getFullYear();
@@ -206,7 +206,8 @@ export default function Calendar({
 
   const [currentMonth, setCurrentMonth] = useState(new Date());
   const [selectedDate, setSelectedDate] = useState(formatDate(new Date()));
-  const [selectedHolidayInfo, setSelectedHolidayInfo] = useState<Holiday | null>(null);
+  const [selectedHolidayInfo, setSelectedHolidayInfo] =
+    useState<Holiday | null>(null);
   const calendarId = "calendar";
   const errorId = "date-error";
   const calendarGridRef = useRef<HTMLDivElement>(null);
@@ -223,7 +224,7 @@ export default function Calendar({
         todayHoliday && todayHoliday.type === "OBSERVANCE" ? todayHoliday : null
       );
     }
-  }, [holidays, onSelectDate, selectedDate]);
+  }, [holidays, onSelectDate]);
 
   useEffect(() => {
     if (selectedDate) {
@@ -283,14 +284,14 @@ export default function Calendar({
     setSelectedDate(dateString);
 
     const isHoliday = day.holiday?.type === "NATIONAL_HOLIDAY" || day.disabled;
-    
+
     if (isHoliday) {
       const holidayInfo = day.holiday || {
         name: "Sunday",
         date: dateString,
-        type: "NATIONAL_HOLIDAY"
+        type: "NATIONAL_HOLIDAY",
       };
-      
+
       setSelectedHolidayInfo(holidayInfo);
       onSelectDate(dateString, holidayInfo);
     } else if (day.holiday?.type === "OBSERVANCE") {
@@ -302,42 +303,46 @@ export default function Calendar({
     }
   };
 
-  const handleKeyboardNavigation = (e: React.KeyboardEvent, day: CalendarDay, index: number) => {
+  const handleKeyboardNavigation = (
+    e: React.KeyboardEvent,
+    day: CalendarDay,
+    index: number
+  ) => {
     switch (e.key) {
-      case 'ArrowRight':
+      case "ArrowRight":
         e.preventDefault();
         navigateToNextDay(index, 1);
         break;
-      case 'ArrowLeft':
+      case "ArrowLeft":
         e.preventDefault();
         navigateToNextDay(index, -1);
         break;
-      case 'ArrowUp':
+      case "ArrowUp":
         e.preventDefault();
         navigateToNextDay(index, -7);
         break;
-      case 'ArrowDown':
+      case "ArrowDown":
         e.preventDefault();
         navigateToNextDay(index, 7);
         break;
-      case 'Home':
+      case "Home":
         e.preventDefault();
         navigateToFirstDay();
         break;
-      case 'End':
+      case "End":
         e.preventDefault();
         navigateToLastDay();
         break;
-      case 'PageDown':
+      case "PageDown":
         e.preventDefault();
         nextMonth();
         break;
-      case 'PageUp':
+      case "PageUp":
         e.preventDefault();
         prevMonth();
         break;
-      case 'Enter':
-      case ' ':
+      case "Enter":
+      case " ":
         e.preventDefault();
         if (day.date) {
           handleDateClick(day);
@@ -350,24 +355,26 @@ export default function Calendar({
 
   const navigateToNextDay = (currentIndex: number, step: number) => {
     if (!calendarGridRef.current) return;
-    
+
     const days = getDaysInMonth(currentMonth);
     let nextIndex = currentIndex + step;
-    
+
     if (nextIndex < 0 || nextIndex >= days.length) return;
-    
+
     while (nextIndex >= 0 && nextIndex < days.length && !days[nextIndex].date) {
       nextIndex += Math.sign(step);
     }
-    
+
     if (nextIndex >= 0 && nextIndex < days.length && days[nextIndex].date) {
-      const dataIdxCells = calendarGridRef.current.querySelectorAll(`[data-idx="${nextIndex}"]`);
-      
+      const dataIdxCells = calendarGridRef.current.querySelectorAll(
+        `[data-idx="${nextIndex}"]`
+      );
+
       if (dataIdxCells.length > 0) {
         const cellToFocus = dataIdxCells[0] as HTMLElement;
         cellToFocus.tabIndex = 0;
         cellToFocus.focus();
-        
+
         if (days[nextIndex].date) {
           handleDateClick(days[nextIndex]);
         }
@@ -377,15 +384,17 @@ export default function Calendar({
 
   const navigateToFirstDay = () => {
     const days = getDaysInMonth(currentMonth);
-    const firstValidIndex = days.findIndex(day => day.date !== null);
+    const firstValidIndex = days.findIndex((day) => day.date !== null);
     if (firstValidIndex >= 0) {
       navigateToNextDay(firstValidIndex, 0);
     }
   };
-  
+
   const navigateToLastDay = () => {
     const days = getDaysInMonth(currentMonth);
-    const lastValidIndex = [...days].reverse().findIndex(day => day.date !== null);
+    const lastValidIndex = [...days]
+      .reverse()
+      .findIndex((day) => day.date !== null);
     if (lastValidIndex >= 0) {
       const actualIndex = days.length - 1 - lastValidIndex;
       navigateToNextDay(actualIndex, 0);
@@ -396,23 +405,26 @@ export default function Calendar({
 
   return (
     <div className="space-y-1 w-full lg:w-80 relative">
-      <RequiredLabel text="Date" required={!!error} forId={calendarId} />
-
-      <div 
-        className="border border-inactive rounded-lg bg-white p-6 w-full" 
-        id={calendarId} 
+      <div className="flex gap-2 items-center">
+        <RequiredLabel text="Date" required={!!error} forId={calendarId} />
+      {isLoadingHolidays && <span className="text-inactive animate-pulse">Load holidays...</span>}
+      </div>
+      
+      <div
+        className="border border-inactive rounded-lg bg-white p-6 w-full"
+        id={calendarId}
         aria-describedby={error ? errorId : undefined}
       >
-        <CalendarHeader 
-          currentMonth={currentMonth} 
-          onPrevMonth={prevMonth} 
-          onNextMonth={nextMonth} 
+        <CalendarHeader
+          currentMonth={currentMonth}
+          onPrevMonth={prevMonth}
+          onNextMonth={nextMonth}
         />
-        
+
         <CalendarDayHeaders />
-        
-        <CalendarGrid 
-          days={days} 
+
+        <CalendarGrid
+          days={days}
           formatDate={formatDate}
           selectedDate={selectedDate}
           currentMonth={currentMonth}
@@ -421,9 +433,7 @@ export default function Calendar({
           calendarRef={calendarGridRef}
         />
       </div>
-      
       <HolidayInfo holiday={selectedHolidayInfo} />
-
       <ErrorMessage error={error} id={errorId} />
     </div>
   );

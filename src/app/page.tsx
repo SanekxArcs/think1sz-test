@@ -9,8 +9,14 @@ import Calendar from "../components/Calendar";
 import TimeSlots from "../components/TimeSlots";
 import Button from "../components/Button";
 import { FormDataType, FormErrors, Holiday } from "../types/forms";
+import { useHolidays } from "../hooks/useHolidays"; // Import the hook
 
 const FORM_STORAGE_KEY = "workout-form-data";
+const EMAIL_REGEX = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+
+const isValidEmail = (email: string): boolean => {
+  return EMAIL_REGEX.test(email);
+};
 
 export default function Home() {
   const [formData, setFormData] = useState<FormDataType>({
@@ -25,21 +31,17 @@ export default function Home() {
 
   const [errors, setErrors] = useState<FormErrors>({});
   const [showTimeSlots, setShowTimeSlots] = useState(false);
-  const [holidays, setHolidays] = useState<Holiday[]>([]);
+  const { holidays, isLoading: isLoadingHolidays } = useHolidays(); // Use the hook
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isDisabled, setIsDisabled] = useState(true);
   const [submitSuccess, setSubmitSuccess] = useState(false);
   const formId = "workout-application-form";
 
   useEffect(() => {
-    fetchHolidays();
-  }, []);
-
-  useEffect(() => {
     const isValid =
       formData.name.trim() !== "" &&
       formData.lastName.trim() !== "" &&
-      /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(formData.email) &&
+      isValidEmail(formData.email) &&
       formData.age >= 8 &&
       formData.photo !== null &&
       formData.date !== "" &&
@@ -47,16 +49,6 @@ export default function Home() {
 
     setIsDisabled(!isValid);
   }, [formData]);
-
-  const fetchHolidays = async () => {
-    try {
-      const response = await fetch("/api/holidays");
-      const data = await response.json();
-      setHolidays(data);
-    } catch (error) {
-      console.error("Error fetching holidays:", error);
-    }
-  };
 
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -110,9 +102,7 @@ export default function Home() {
       return;
     }
 
-    const isValidEmail =
-      /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(email);
-    if (!isValidEmail) {
+    if (!isValidEmail(email)) {
       setErrors((prev) => ({
         ...prev,
         email: "Please use correct formatting. Example: address@email.com",
@@ -130,9 +120,7 @@ export default function Home() {
 
     if (!formData.email.trim()) {
       newErrors.email = "Email is required";
-    } else if (
-      !/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(formData.email)
-    ) {
+    } else if (!isValidEmail(formData.email)) {
       newErrors.email =
         "Please use correct formatting. Example: address@email.com";
     }
@@ -233,6 +221,8 @@ export default function Home() {
   return (
     <div className="grid items-center justify-items-center min-h-screen font-[family-name:var(--font-geist-sans)] p-6">
       <main className="w-full max-w-[426px]" role="main">
+        
+
         <h1 className="sr-only">Workout Application Form</h1>
         <form
           onSubmit={handleSubmit}
@@ -293,6 +283,7 @@ export default function Home() {
                 onSelectDate={handleDateSelect}
                 holidays={holidays}
                 error={errors.date}
+                isLoadingHolidays={isLoadingHolidays}
               />
               {showTimeSlots && (
                 <div aria-live="polite">

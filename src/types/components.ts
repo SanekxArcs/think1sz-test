@@ -50,6 +50,7 @@ export interface CalendarProps {
   onSelectDate: (date: string, holidayInfo: Holiday | null) => void;
   holidays: Holiday[];
   error?: string;
+  isLoadingHolidays?: boolean;
 }
 
 export interface ButtonProps {

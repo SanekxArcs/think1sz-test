@@ -7,6 +7,8 @@ interface FormattedHoliday extends Holiday {
   type: HolidayType;
 }
 
+export const revalidate = 86400;
+
 export async function GET() {
   try {
     const apiKey = process.env.API_KEY;
@@ -28,6 +30,7 @@ export async function GET() {
           "X-Api-Key": apiKey,
           "Content-Type": "application/json",
         },
+        next: { revalidate },
       }
     );
 
@@ -38,6 +41,7 @@ export async function GET() {
           "X-Api-Key": apiKey,
           "Content-Type": "application/json",
         },
+        next: { revalidate },
       }
     );
 
@@ -76,7 +80,6 @@ export async function GET() {
     );
 
     const allHolidays = [...formattedNationalHolidays, ...formattedObservances];
-    console.log("Fetched holidays:", allHolidays);
 
     return NextResponse.json(allHolidays);
   } catch (error) {
