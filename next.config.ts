@@ -1,7 +1,9 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  /* config options here */
+  // Fully static site: no functions, middleware, ISR or image optimization.
+  output: "export",
+  images: { unoptimized: true },
 };
 
 export default nextConfig;

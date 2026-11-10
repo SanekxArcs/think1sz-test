@@ -94,11 +94,6 @@ Projekt został stworzony z dużym naciskiem na szczegóły interfejsu, responsy
 think1sz-test-task/
 ├── src/
 │   ├── app/
-│   │   ├── api/
-│   │   │   ├── holidays/
-│   │   │   │   └── route.ts
-│   │   │   └── submit/
-│   │   │       └── route.ts
 │   │   └── page.tsx
 │   ├── components/
 │   │   ├── Button.tsx
@@ -112,7 +107,10 @@ think1sz-test-task/
 │   │   └── TimeSlots.tsx
 │   ├── hooks/
 │   │   ├── useDragAndDrop.ts
+│   │   ├── useHolidays.ts
 │   │   └── useRangeSlider.ts
+│   ├── lib/
+│   │   └── holidays.ts
 │   └── types/
 │       ├── components.ts
 │       ├── forms.ts
@@ -127,12 +125,15 @@ think1sz-test-task/
    ```
    npm install
    ```
-3. Create a `.env.local` file in the root directory and add your API key:
-   ```
-   API_KEY="OH+HEf/9IH2zuHR/cMO/8g==ldhBovC6Rpa1TIss"
-   ```
-4. Run the development server:
+3. Run the development server:
    ```
    npm run dev
    ```
-5. Open [http://localhost:3000](http://localhost:3000) to view the application
+4. Open [http://localhost:3000](http://localhost:3000) to view the application
+
+## Static export
+
+The site is built as a fully static export (`output: "export"` in `next.config.ts`), so `npm run build` writes plain HTML/CSS/JS to `out/` and nothing runs on a server:
+
+- Polish holidays are computed in the browser (`src/lib/holidays.ts`) instead of being fetched from API Ninjas through an API route, so no API key is needed.
+- Form submission is simulated in the browser; the data is not sent anywhere.

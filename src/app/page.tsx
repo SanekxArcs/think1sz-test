@@ -175,22 +175,12 @@ export default function Home() {
     setIsSubmitting(true);
 
     try {
-      const formDataToSubmit = new FormData();
+      // The site is a static export with no backend: the submission is
+      // simulated in the browser and the data is not sent anywhere.
+      await new Promise((resolve) => setTimeout(resolve, 800));
+      const responseData = { resetSuccessAfter: 5000 };
 
-      Object.entries(formData).forEach(([key, value]) => {
-        if (value !== null) {
-          formDataToSubmit.append(key, value);
-        }
-      });
-
-      const response = await fetch("/api/submit", {
-        method: "POST",
-        body: formDataToSubmit,
-      });
-
-      if (response.ok) {
-        const responseData = await response.json();
-
+      {
         setSubmitSuccess(true);
 
         setFormData({

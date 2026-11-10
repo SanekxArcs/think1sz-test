@@ -1,29 +1,16 @@
-import useSWR from 'swr';
-import { Holiday } from '../types/forms';
+import { Holiday } from "../types/forms";
+import { getPolishHolidays } from "../lib/holidays";
 
-const fetcher = async (url: string) => {
-  const response = await fetch(url);
-  if (!response.ok) {
-    throw new Error('Failed to fetch holidays');
-  }
-  return response.json();
-};
+// Computed once per page load; a stable reference keeps effects that depend on it quiet.
+const currentYear = new Date().getFullYear();
+const HOLIDAYS: Holiday[] = Array.from({ length: 12 }, (_, i) =>
+  getPolishHolidays(currentYear - 1 + i)
+).flat();
 
 export function useHolidays() {
-  const { data, error, isLoading, mutate } = useSWR<Holiday[]>(
-    '/api/holidays',
-    fetcher,
-    {
-      revalidateOnFocus: false,
-      revalidateIfStale: false,
-      dedupingInterval: 3600000,
-    }
-  );
-
   return {
-    holidays: data || [],
-    isLoading,
-    isError: error,
-    mutate,
+    holidays: HOLIDAYS,
+    isLoading: false,
+    isError: undefined,
   };
 }
